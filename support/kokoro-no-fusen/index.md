@@ -28,3 +28,4 @@ Home画面右上の「プレミアム」ボタンから表示される画面で�
 
 ## プライバシーポリシー
 https://chiseled-prawn-ff8.notion.site/340243d8042f806aa905c8bcf28ac133
+
