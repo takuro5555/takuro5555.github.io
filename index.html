@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Takuro Modoki | アプリ紹介</title>
+  <style>
+    :root {
+      --bg: #f6f7fb;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --line: #e5e7eb;
+      --primary: #3b82f6;
+      --primary-dark: #2563eb;
+      --soft: #eef4ff;
+      --shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+      --radius: 24px;
+      --radius-sm: 16px;
+      --max: 1180px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic", "Noto Sans JP", sans-serif;
+      color: var(--text);
+      background: linear-gradient(180deg, #fbfcff 0%, #f4f6fb 100%);
+      line-height: 1.7;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+
+    .container {
+      width: min(var(--max), calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(12px);
+      background: rgba(255,255,255,0.85);
+      border-bottom: 1px solid rgba(229,231,235,0.8);
+    }
+
+    .nav {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      font-size: 1.15rem;
+    }
+
+    .brand-mark {
+      width: 40px;
+      height: 40px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+      display: grid;
+      place-items: center;
+      color: var(--primary-dark);
+      box-shadow: var(--shadow);
+      font-size: 1.1rem;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    .hero {
+      padding: 72px 0 40px;
+      text-align: center;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--soft);
+      color: var(--primary-dark);
+      border: 1px solid #dbeafe;
+      border-radius: 999px;
+      padding: 8px 14px;
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+
+    .hero h1 {
+      margin: 18px auto 14px;
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      max-width: 840px;
+    }
+
+    .hero p {
+      margin: 0 auto;
+      max-width: 760px;
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+
+    .hero-actions {
+      margin-top: 28px;
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 48px;
+      padding: 0 20px;
+      border-radius: 14px;
+      font-weight: 800;
+      border: 1px solid transparent;
+      transition: 0.2s ease;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #fff;
+      box-shadow: 0 10px 24px rgba(59,130,246,0.24);
+    }
+    .btn-primary:hover { background: var(--primary-dark); transform: translateY(-1px); }
+
+    .btn-secondary {
+      background: #fff;
+      border-color: var(--line);
+      color: var(--text);
+    }
+    .btn-secondary:hover { border-color: #cbd5e1; transform: translateY(-1px); }
+
+    section { padding: 28px 0; }
+
+    .section-title {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+
+    .section-title h2 {
+      margin: 0;
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      letter-spacing: -0.02em;
+    }
+
+    .section-title p {
+      margin: 0;
+      color: var(--muted);
+      max-width: 680px;
+    }
+
+    .apps-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 24px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .app-card {
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      min-height: 100%;
+    }
+
+    .app-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .app-top h3 {
+      margin: 0 0 8px;
+      font-size: 1.8rem;
+      letter-spacing: -0.02em;
+    }
+
+    .tag {
+      display: inline-flex;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: var(--soft);
+      color: var(--primary-dark);
+      font-size: 0.82rem;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .muted { color: var(--muted); }
+
+    .phones {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      align-items: end;
+    }
+
+    .phone {
+      aspect-ratio: 9 / 19.5;
+      border-radius: 28px;
+      padding: 8px;
+      background: #0f172a;
+      box-shadow: 0 18px 34px rgba(15,23,42,0.18);
+      position: relative;
+    }
+
+    .phone::before {
+      content: "";
+      position: absolute;
+      top: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 34%;
+      height: 14px;
+      border-radius: 999px;
+      background: #111827;
+      z-index: 2;
+    }
+
+    .phone-screen {
+      width: 100%;
+      height: 100%;
+      border-radius: 22px;
+      overflow: hidden;
+      background: linear-gradient(180deg, #f8fafc, #dbeafe);
+      border: 1px solid rgba(255,255,255,0.18);
+    }
+
+    .phone-screen img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .app-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: auto;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1.3fr 1fr;
+      gap: 24px;
+    }
+
+    .faq-list,
+    .support-list,
+    .update-list {
+      margin: 0;
+      padding-left: 1.1rem;
+      color: var(--text);
+    }
+
+    .faq-list li,
+    .support-list li,
+    .update-list li {
+      margin: 0 0 12px;
+    }
+
+    .mini-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    .mini-card {
+      padding: 22px;
+      border-radius: var(--radius-sm);
+      background: #fff;
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+    }
+
+    .mini-card h3 {
+      margin: 0 0 12px;
+      font-size: 1.25rem;
+    }
+
+    .footer {
+      margin-top: 28px;
+      padding: 30px 0 44px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 980px) {
+      .apps-grid,
+      .two-col,
+      .mini-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .phones {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      .nav {
+        align-items: flex-start;
+        padding: 14px 0;
+      }
+
+      .nav-links {
+        gap: 12px;
+      }
+
+      .hero {
+        padding-top: 42px;
+      }
+
+      .app-card {
+        padding: 22px;
+      }
+
+      .app-top {
+        flex-direction: column;
+      }
+
+      .phones {
+        gap: 10px;
+      }
+
+      .phone {
+        border-radius: 22px;
+        padding: 6px;
+      }
+
+      .phone-screen {
+        border-radius: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <div class="brand">
+        <div class="brand-mark">✦</div>
+        <span>Takuro Modoki</span>
+      </div>
+      <nav class="nav-links">
+        <a href="#apps">アプリ</a>
+        <a href="#faq">よくある質問</a>
+        <a href="#support">サポート</a>
+        <a href="#updates">更新履歴</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="hero-badge">個人開発アプリ紹介サイト</div>
+        <h1>iPhoneで遊べるアプリを、
+          わかりやすくまとめた公式サイト</h1>
+        <p>
+          個人開発で制作しているアプリの紹介ページです。アプリの特徴、スクリーンショット、
+          サポート情報、更新履歴をまとめて確認できます。
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#apps">アプリを見る</a>
+          <a class="btn btn-secondary" href="#support">サポートへ</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="apps">
+      <div class="container">
+        <div class="section-title">
+          <div>
+            <h2>アプリ一覧</h2>
+            <p>App Store で公開しているアプリを紹介します。まずは2本だけ載せて、あとから「心の付箋」を追加する運用に向いています。</p>
+          </div>
+        </div>
+
+        <div class="apps-grid">
+          <article class="card app-card">
+            <div class="app-top">
+              <div>
+                <span class="tag">パズル</span>
+                <h3>アナグラムラボ</h3>
+                <p class="muted">文字を入れ替えて言葉を作る、脳トレ系のアナグラムパズルです。</p>
+              </div>
+            </div>
+            <div class="phones">
+              <div class="phone"><div class="phone-screen"><img src="images/anagram-1.png" alt="アナグラムラボ スクリーンショット1"></div></div>
+              <div class="phone"><div class="phone-screen"><img src="images/anagram-2.png" alt="アナグラムラボ スクリーンショット2"></div></div>
+              <div class="phone"><div class="phone-screen"><img src="images/anagram-3.png" alt="アナグラムラボ スクリーンショット3"></div></div>
+            </div>
+            <div class="app-actions">
+              <a class="btn btn-primary" href="https://apps.apple.com/jp/" target="_blank" rel="noopener noreferrer">App Storeで見る</a>
+              <a class="btn btn-secondary" href="support/anagram-lab/">詳しく見る</a>
+            </div>
+          </article>
+
+          <article class="card app-card">
+            <div class="app-top">
+              <div>
+                <span class="tag">カジュアルゲーム</span>
+                <h3>直感スピードアリーナ</h3>
+                <p class="muted">短時間で遊べる、反射神経と判断の速さを試すスコアアタック型ゲームです。</p>
+              </div>
+            </div>
+            <div class="phones">
+              <div class="phone"><div class="phone-screen"><img src="images/intuition-1.png" alt="直感スピードアリーナ スクリーンショット1"></div></div>
+              <div class="phone"><div class="phone-screen"><img src="images/intuition-2.png" alt="直感スピードアリーナ スクリーンショット2"></div></div>
+              <div class="phone"><div class="phone-screen"><img src="images/intuition-3.png" alt="直感スピードアリーナ スクリーンショット3"></div></div>
+            </div>
+            <div class="app-actions">
+              <a class="btn btn-primary" href="https://apps.apple.com/jp/" target="_blank" rel="noopener noreferrer">App Storeで見る</a>
+              <a class="btn btn-secondary" href="support/intuition-speed-arena/">詳しく見る</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq">
+      <div class="container">
+        <div class="section-title">
+          <div>
+            <h2>よくある質問</h2>
+            <p>まずは最低限の質問だけ置いておき、必要に応じて増やしていくのがおすすめです。</p>
+          </div>
+        </div>
+        <div class="card" style="padding: 26px;">
+          <div class="two-col">
+            <ul class="faq-list">
+              <li>アプリが起動しない時はどうすればいいですか？</li>
+              <li>端末を変えた時にデータは引き継げますか？</li>
+              <li>広告や課金の不具合はどこへ連絡すればいいですか？</li>
+            </ul>
+            <ul class="faq-list">
+              <li>操作方法がわからない場合はどこを見ればいいですか？</li>
+              <li>アップデート情報はどこで確認できますか？</li>
+              <li><a href="#support" style="color: var(--primary-dark); font-weight: 700;">サポートページを見る →</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container mini-grid">
+        <article class="mini-card" id="support">
+          <h3>サポート</h3>
+          <ul class="support-list">
+            <li>問い合わせ先</li>
+            <li>不具合報告の送り方</li>
+            <li>対応できる内容 / できない内容</li>
+          </ul>
+          <a href="support/" style="color: var(--primary-dark); font-weight: 700;">詳しく見る →</a>
+        </article>
+
+        <article class="mini-card">
+          <h3>このサイトについて</h3>
+          <ul class="support-list">
+            <li>個人開発アプリの紹介</li>
+            <li>アプリの導線まとめ</li>
+            <li>サポートURLの受け皿</li>
+          </ul>
+          <a href="#apps" style="color: var(--primary-dark); font-weight: 700;">アプリを見る →</a>
+        </article>
+
+        <article class="mini-card" id="updates">
+          <h3>更新履歴</h3>
+          <ul class="update-list">
+            <li>2026年4月13日 サイト初版公開</li>
+            <li>2026年4月10日 アプリ情報更新</li>
+            <li>2026年4月1日 サポート情報追加</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div>© 2026 Takuro Higuchi</div>
+      <div class="footer-links">
+        <a href="privacy/">プライバシーポリシー</a>
+        <a href="terms/">利用規約</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
